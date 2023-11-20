@@ -14,12 +14,15 @@ async function getBlogPosts() {
             let postContainer = document.createElement('div');
             postContainer.classList.add('blog-post');// Styling för varje blogpost container
 
+            // formatera datum för varje blogpost.
+        let formattedDate = new Date(post.createdAt).toString();    
             // lägg till content för varje blogpost...
         postContainer.innerHTML = `
             <p><strong>Name:</strong> ${post.name}</p>
             <p><strong>Email:</strong> ${post.email}</p>
             <p><strong>Phone:</strong> ${post.phone}</p>
             <p><strong>Message:</strong> ${post.content}</p>
+            <p><strong>Date:</strong> ${formattedDate}</p>
             <hr>
         `;
             //appendar
