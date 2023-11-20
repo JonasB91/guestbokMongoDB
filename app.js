@@ -1,25 +1,24 @@
-//Will use MongoDB to store Blogposts
-//app.js is the client server-side setting up server and database for guestbook project.
+//Server client ---
+//Importar PACKAGES...
 let express = require("express");
-let app = express(); // app using express
+let app = express(); 
 let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
 let bcrypt = require('bcrypt');
-const session = require('express-session');
+let session = require('express-session');
+require('dotenv').config() 
 
-require('dotenv').config() // måste importera dotenv package 
-
-// Set up middleware
+// MIDDLEWEARS
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); // åtkomst till public folder för stylesheets etc.
 app.use(session({ secret: 'snusdosan123', resave: true, saveUninitialized: true }));
 
 
-// INDEX route to serve HTML
-
+// ROUTES för alla html sidor...
 app.get('/', (req, res) => {
     if (req.session.user) {
-        res.redirect('/index');
+        // om användaren är inloggad kör blog.html annars sänd till login för att logga in eller skapa konto...
+        res.redirect('/blog.html');
     } else {
         res.sendFile(__dirname + '/public/login.html');
     }
@@ -50,8 +49,9 @@ let mongoConnect = async () => {
     }
 }
 
-//run the MongoDB
+//Kör MONGO Database...
 mongoConnect();
+
 
 //Login Schema to add user name and user password to Mongo Database...
 let loginSchema = new mongoose.Schema({
@@ -65,9 +65,9 @@ let loginSchema = new mongoose.Schema({
     }
 });
 
-// Collection in database...
-let userCollection = new mongoose.model("users", loginSchema);
 
+// Collection in database för loginschema - users...
+let userCollection = new mongoose.model("users", loginSchema);
 
 /*APP POST
 SIGN UP USERS TO DATABASE
@@ -102,6 +102,8 @@ let existingUser = await userCollection.findOne({ name: username });
     }
 });
 
+
+
 /*APP POST
 LOGIN USERS TO DATABASE
 */
@@ -128,21 +130,23 @@ app.post('/login', async (req, res) => {
     }
 })
 
+
+
 //LOUGOUT ROUTE...
 app.get('/logout', (req, res) => {
-    //Logga ut nuvarande user från session
+    //Logga ut nuvarande user från session OM error så logga kunde inte logga ut, annars skicka oss till login.html
     req.session.destroy((error) => {
         if (error) {
             console.error('Error Kunde inte logga ut!', error);
         } else {
-            res.redirect('/login.html'); // Redirect to the login page after logout
-            console.log("User Logged out from session!")
+            res.redirect('/login.html'); 
+            console.log("User Logged out from session!") // logga om användaren loggade ut..
         }
     });
 });
 
 
-//BlogPostSchema to add data to Mongo Database..
+//BlogPostSchema för att addera data till databasen Mongo DB, för varje post..
 let blogPostSchema = new mongoose.Schema({
     name: String,
     phone: Number,
@@ -159,8 +163,8 @@ let BlogPost = mongoose.model('BlogPost', blogPostSchema);
 
 //Sätta upp formuläret och visa blog posts på index sidan.
 /*GET
-INDEX*/ 
-//Index ROUTE
+BLOGPOSTS*/
+
 app.get('/blogposts', async (req, res) => {
     console.log("Fetching blog posts....")
    try {
@@ -172,8 +176,7 @@ app.get('/blogposts', async (req, res) => {
    }
 });
 
-//POST ROUTE för att adda en ny post
-//INDEX.HTML
+//POST ROUTE för att adda ett nytt inlägg till bloggen..
 app.post("/addpost", async (req, res) => {
  try {
     let newPost = new BlogPost({
@@ -188,7 +191,7 @@ app.post("/addpost", async (req, res) => {
     //Loggar ut ett meddelande om ny blogpost är adderat till databasen...
     console.log('New Blog Post added to Mongo Database:', newPost);
     
-    // redirectar till root:
+    // redirectar till blog.html efter vi addat data till databasen, 
     res.redirect('/blog.html')
  } catch (error) { // fånga upp error, OM error  skicka felkod 500, 
     console.error(error)
@@ -196,8 +199,7 @@ app.post("/addpost", async (req, res) => {
  }
 });
 
-
-//app running on port.....
+//servern lyssnar på port 8080 som är satt i .env 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on http://localhost:${process.env.PORT}`);
   });
