@@ -119,6 +119,7 @@ app.post('/login', async (req, res) => {
                 //Session som indikerar om user är inloggad.
                 req.session.user = checkUser;
                 res.redirect('/blog.html')
+                console.log("New User Logged In!");
             } else {
                 res.send("Wrong Password")
                 console.log("Wrong Password!")

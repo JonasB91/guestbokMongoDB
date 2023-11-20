@@ -14,8 +14,16 @@ async function getBlogPosts() {
             let postContainer = document.createElement('div');
             postContainer.classList.add('blog-post');// Styling för varje blogpost container
 
-            // formatera datum för varje blogpost.
-        let formattedDate = new Date(post.createdAt).toString();    
+            // formatera datum och tid och årtal för varje blogpost.
+            let formattedDate = new Date(post.createdAt).toLocaleDateString('en-US', {
+                weekday: 'long', // visa full vecko dagar
+                year: 'numeric',
+                month: 'long', // visa full månad
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
+            });
+
             // lägg till content för varje blogpost...
         postContainer.innerHTML = `
             <p><strong>Name:</strong> ${post.name}</p>
