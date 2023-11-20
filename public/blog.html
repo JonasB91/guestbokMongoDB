@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gästbok med mongoDB</title>
+  <link rel="stylesheet" href="/blog.css">
+  <script defer src="/index.js"></script>
+  
+</head>
+<body>
+  <h1>The Corner</h1>
+  <form action="/addpost" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone" required><br>
+
+    <label for="content">Message:</label>
+    <textarea id="content" name="content" required></textarea><br>
+
+    <button type="submit">Submit</button>
+  </form>
+  <form action="/logout" method="get">
+    <button type="submit" class="logout-btn">Logout</button>
+</form>
+
+
+  <h1>The Wall of posts...</h1>
+  <ul id="blog-posts">
+    <!-- Här visas alla blog-posts som hämtas från databasen Mongo DB fetchas via index.js och app.js -->
+  </ul>
+
+  
+</body>
+</html>
