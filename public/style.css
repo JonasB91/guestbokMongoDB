@@ -10,7 +10,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: burlywood;
+    background-image: url(NyDe.gif);
+    background-position: center;
+    background-size: cover;
+    color: white;
+}
+#bbb {
+    color: white;
 }
 
 h2 {

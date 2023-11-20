@@ -33,7 +33,6 @@ app.get('/blog', (req, res) => {
         // om användaren inte är inloggad kör login
         return res.redirect('/login');
     }
-
     // om användaren är inloggad så kör index
     res.sendFile(__dirname + '/public/blog.html');
 });

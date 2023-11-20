@@ -2,6 +2,7 @@
 
 async function getBlogPosts() {
     try {
+        //fetchar blogposts..
         let response = await fetch('/blogposts');
         let posts = await response.json();
 

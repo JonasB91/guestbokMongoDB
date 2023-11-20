@@ -32,6 +32,7 @@ h2 {
 #content {
     width: 500px;
     height: 200px;
+    margin-right: 30px;
 }
 
 #blog-posts {
