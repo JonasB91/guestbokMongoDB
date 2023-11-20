@@ -10,7 +10,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: bisque;
+    background-color: burlywood;
 }
 
 h2 {
@@ -41,4 +41,13 @@ h2 {
     padding: 5px;
     font-size: 12px;
     border: 1px solid white;
+}
+
+.submit-btn {
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+    margin-left: 50px;
+    background-color: grey;
+    color: white;
 }
