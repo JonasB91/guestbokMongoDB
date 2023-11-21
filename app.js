@@ -40,6 +40,7 @@ app.get('/blog', (req, res) => {
 
 //Connect to MongoDB using try-catch. hämtar mongoDB uri från .env som sätter port och uri till databasen.
 let mongoConnect = async () => {
+    //console.log(process.env.MONGODB_URI);
     try {
         let connect = await mongoose.connect(process.env.MONGODB_URI);
         console.log("MongoDB is connected successfully!!!");
