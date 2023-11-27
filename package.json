@@ -1,9 +1,11 @@
 {
-  "scripts": {
-    "start": "app.js"
-  },
-  
-  "description": "",
+    "name": "guestbokMongoDB",
+    "version": "1.0.0",
+    "description": "Gästbok med mongoDB",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
