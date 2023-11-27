@@ -8,6 +8,7 @@ let bcrypt = require('bcrypt');
 let session = require('express-session');
 require('dotenv').config() 
 
+
 // MIDDLEWEARS
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); // åtkomst till public folder för stylesheets etc.
@@ -31,16 +32,15 @@ app.get('/signup', (req, res) => {
 app.get('/blog', (req, res) => {
     if (!req.session.user) {
         // om användaren inte är inloggad kör login
-        return res.redirect('/login');
+        return res.redirect('/index');
     }
     // om användaren är inloggad så kör index
     res.sendFile(__dirname + '/public/blog.html');
 });
 
-
 //Connect to MongoDB using try-catch. hämtar mongoDB uri från .env som sätter port och uri till databasen.
 let mongoConnect = async () => {
-    //console.log(process.env.MONGODB_URI);
+    
     try {
         let connect = await mongoose.connect(process.env.MONGODB_URI);
         console.log("MongoDB is connected successfully!!!");
@@ -95,7 +95,7 @@ let existingUser = await userCollection.findOne({ name: username });
             
             //Loggar om skapas ny användare, Ny användare skapad...
         console.log("New User Registered...", newUser);
-        res.redirect('/login.html');// om ny user skapas ska vi skickas till login sidan.
+        res.redirect('/index.html');// om ny user skapas ska vi skickas till login sidan.
     } catch (error) {
         console.error(error)
         console.log("Internal Server Error", error)
@@ -140,7 +140,7 @@ app.get('/logout', (req, res) => {
         if (error) {
             console.error('Error Kunde inte logga ut!', error);
         } else {
-            res.redirect('/login.html'); 
+            res.redirect('/index.html'); 
             console.log("User Logged out from session!") // logga om användaren loggade ut..
         }
     });
@@ -201,6 +201,6 @@ app.post("/addpost", async (req, res) => {
 });
 
 //servern lyssnar på port 8080 som är satt i .env 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running on http://localhost:${process.env.PORT}`);
   });
