@@ -1,7 +1,4 @@
 {
-    "scripts": {
-    "start": "babel-node app.js"
-  },
     "dependencies": {
         "bcrypt": "^5.1.1",
         "body-parser": "^1.20.2",
@@ -11,9 +8,5 @@
         "express-session": "^1.17.3",
         "mongodb": "^6.3.0",
         "mongoose": "^8.0.1"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.23.3",
-        "@babel/preset-env": "^7.23.3"
     }
 }
