@@ -12,7 +12,7 @@ require('dotenv').config()
 // MIDDLEWEARS
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); // åtkomst till public folder för stylesheets etc.
-app.use(session({ secret: 'snusdosan123', resave: true, saveUninitialized: true }));
+app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
 
 
 // ROUTES för alla html sidor...
@@ -32,7 +32,7 @@ app.get('/signup', (req, res) => {
 app.get('/blog', (req, res) => {
     if (!req.session.user) {
         // om användaren inte är inloggad kör login
-        return res.redirect('/index');
+        return res.redirect('/index.html');
     }
     // om användaren är inloggad så kör index
     res.sendFile(__dirname + '/public/blog.html');
